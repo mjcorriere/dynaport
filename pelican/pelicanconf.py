@@ -7,6 +7,7 @@ SITENAME = u'Pelgen'
 SITEURL = ''
 
 PATH = 'content'
+STATIC_PATHS = ['images', 'js']
 
 TIMEZONE = 'Europe/Paris'
 

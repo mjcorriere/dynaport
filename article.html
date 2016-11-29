@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>{% block title %}{{SITENAME}}{%endblock%}</title>
-  <link rel="stylesheet" type="text/css" href="css/semantic.css">
   <link rel="stylesheet" href="{{ SITEURL }}/{{THEME_STATIC_DIR}}/css/semantic.css"/>
   <style type="text/css">
   
@@ -66,7 +65,7 @@
       <p>Made by @mjc</p>
     </div>
   </div>
-  <img class="ui centered rounded image" src="img/mtb.png">
+  <img class="ui centered rounded image" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/mtb.png">
   <div class="ui inverted fluid vertical menu">
     <a class="item">
       Home
@@ -103,8 +102,13 @@
             <div class="item">
               <div class="header">Tags:</div>
               <div>
+
                 <div class="ui teal small horizontal label">Hand tools</div>
                 <div class="ui teal small horizontal label">Wood</div>
+                {% for tag in article.tags %}
+                <div class="ui teal small horizontal label">{{tag}}</div>
+                {% endfor %}
+
               </div>
             </div>
             <div class="item">
@@ -118,9 +122,12 @@
             <div class="item">
               <div class="header">Requirements</div>
               <div class="menu">
-                <a class="item">Rails</a>
-                <a class="item">Python</a>
-                <a class="item">PHP</a>
+                {% for requirement in article.requirements %}
+                <div class="item">{{ requirement }}</div>
+                {% endfor %}
+                <div class="item">Rails</div>
+                <div class="item">Python</div>
+                <div class="item">PHP</div>
               </div>
             </div>
             <div class="item">
@@ -145,8 +152,9 @@
       </div>
       <h2 class="ui header">Images and Video</h2>
       <div class="ui small images">
-        <img class="ui rounded image" src="img/3dmodel.png">
-        <img class="ui rounded image" src="img/working.jpg">
+        <!-- TODO: These should be relative to the article -->
+        <img class="ui rounded image" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/3dmodel.png">
+        <img class="ui rounded image" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/working.jpg">
       </div>      
 
       <h2 class="ui header">Summary</h2>
@@ -154,7 +162,10 @@
      {{ article.content }}
       </p>
       <h2 class="ui header">Lessons Learned</h2>
-      <p>Don't drive angry.</p>
+      <p>
+      	{{ article.lessonslearned }}
+      	<br>Don't drive angry.
+  	  </p>
     </div>
   </div>
 
