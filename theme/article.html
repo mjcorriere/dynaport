@@ -22,13 +22,22 @@
     width: auto !important;
     max-width: 640px !important;
     position: relative;
-    padding: 2em 0em 7em;
+    padding: 2em 1em 7em 3em;
   }
 
   #mjc .pusher > .segment {
     padding-top: 3em;
     padding-bottom: 3em;
+    padding-left: 3em;
     border-bottom: 1px solid #DDDDDD;
+  }
+
+  #mjc h1.ui.header {
+    font-size: 3rem;
+  }
+
+  #mjc h2.ui.header{
+    font-size: 2.1rem;
   }
 
   #mjc .article {
@@ -48,8 +57,16 @@
   }
 
   #mjc .main.container > p {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.75;
+  }
+
+  #mjc .ui.small.images img, .ui.small.images .image {
+    width: 120px;
+  }
+
+  #mjc .ui.horizontal.label {
+    margin-bottom: 0.5em;
   }
 
   </style>
@@ -103,10 +120,8 @@
               <div class="header">Tags:</div>
               <div>
 
-                <div class="ui teal small horizontal label">Hand tools</div>
-                <div class="ui teal small horizontal label">Wood</div>
                 {% for tag in article.tags %}
-                <div class="ui teal small horizontal label">{{tag}}</div>
+                <div class="ui teal large horizontal label">{{tag}}</div>
                 {% endfor %}
 
               </div>
