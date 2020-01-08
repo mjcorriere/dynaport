@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dynaport</title>
-  <link rel="stylesheet" type="text/css" href="css/semantic.css">
+  <title>{% block title %}{{SITENAME}}{%endblock%}</title>
+  <link rel="stylesheet" href="{{THEME_STATIC_DIR}}/css/semantic.css"/>
   <style type="text/css">
   
   #mjc .sidebar {
@@ -22,13 +22,22 @@
     width: auto !important;
     max-width: 640px !important;
     position: relative;
-    padding: 2em 0em 7em;
+    padding: 2em 1em 7em 3em;
   }
 
   #mjc .pusher > .segment {
     padding-top: 3em;
     padding-bottom: 3em;
+    padding-left: 3em;
     border-bottom: 1px solid #DDDDDD;
+  }
+
+  #mjc h1.ui.header {
+    font-size: 3rem;
+  }
+
+  #mjc h2.ui.header{
+    font-size: 2.1rem;
   }
 
   #mjc .article {
@@ -48,8 +57,16 @@
   }
 
   #mjc .main.container > p {
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1.75;
+  }
+
+  #mjc .ui.small.images img, .ui.small.images .image {
+    width: 120px;
+  }
+
+  #mjc .ui.horizontal.label {
+    margin-bottom: 0.5em;
   }
 
   </style>
@@ -65,7 +82,7 @@
       <p>Made by @mjc</p>
     </div>
   </div>
-  <img class="ui centered rounded image" src="img/mtb.png">
+  <img class="ui centered rounded image" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/mtb.png">
   <div class="ui inverted fluid vertical menu">
     <a class="item">
       Home
@@ -79,14 +96,13 @@
     <a class="item">
       Download
     </a>
-
-  </div>
+    </div>
   </div>
   <div class="pusher">
     <div class="ui vertical segment">
       <div class="ui container">
         <h1 class="ui header">
-          Project: Jelly Beans and Milk Steak
+          Project: {{ article.title }}
           <div class="sub header">
             Meta: data Label: 102
           </div>
@@ -98,34 +114,40 @@
           <h4 class="ui header">At a Glance</h4>
           <div class="ui vertical menu">
             <div class="item">
-              <div class="header">Category: Woodworking</div>
+              <div class="header">Category: {{ article.category }}</div>
             </div>
             <div class="item">
               <div class="header">Tags:</div>
               <div>
-                <div class="ui teal small horizontal label">Hand tools</div>
-                <div class="ui teal small horizontal label">Wood</div>
+
+                {% for tag in article.tags %}
+                <div class="ui teal large horizontal label">{{tag}}</div>
+                {% endfor %}
+
               </div>
             </div>
             <div class="item">
               <div class="header">The Basics</div>
               <div class="ui small list">
-                <div class="item">Status: Completed</div>
-                <div class="item">Duration: 3 weeks</div>
-                <div class="item">Difficulty: Advanced</div>
+                <div class="item">Status: {{ article.projectstatus }}</div>
+                <div class="item">Duration: {{ article.duration }}</div>
+                <div class="item">Difficulty: {{ article.difficulty }}</div>
               </div>
             </div>
             <div class="item">
               <div class="header">Requirements</div>
               <div class="menu">
-                <a class="item">Rails</a>
-                <a class="item">Python</a>
-                <a class="item">PHP</a>
+                {% for requirement in article.requirements %}
+                <div class="item">{{ requirement }}</div>
+                {% endfor %}
+                <div class="item">Rails</div>
+                <div class="item">Python</div>
+                <div class="item">PHP</div>
               </div>
             </div>
             <div class="item">
               <div class="header">Motivation</div>
-              <p>To improve the breadth of my woodworking skills by adding hand tools to the mix</p>
+              <p>{{ article.motivation }}</p>
             </div>
             <div class="item">
               <div class="header">Outcome</div>
@@ -145,20 +167,20 @@
       </div>
       <h2 class="ui header">Images and Video</h2>
       <div class="ui small images">
-        <img class="ui rounded image" src="img/3dmodel.png">
-        <img class="ui rounded image" src="img/working.jpg">
+        <!-- TODO: These should be relative to the article -->
+        <img class="ui rounded image" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/3dmodel.png">
+        <img class="ui rounded image" src="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/images/working.jpg">
       </div>      
 
       <h2 class="ui header">Summary</h2>
       <p>
-      Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar.
-      </p>
-      <h2 class="ui header">Hurdles</h2>
-      <p>
-      The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then!
+     {{ article.content }}
       </p>
       <h2 class="ui header">Lessons Learned</h2>
-      <p>Don't drive angry.</p>
+      <p>
+      	{{ article.lessonslearned }}
+      	<br>Don't drive angry.
+  	  </p>
     </div>
   </div>
 
